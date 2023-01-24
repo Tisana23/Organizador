@@ -20,9 +20,9 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     # @task.owner = current_user
     if @task.save
-      render :index
+      redirect_to task_path(@task)
     else
-      render :new
+      render :index
     end
   end
 
@@ -31,10 +31,10 @@ class TasksController < ApplicationController
   end
 
   def update
-    if @task.save
+    if @task.update(task_params)
       redirect_to task_path(@task)
     else
-      render :index
+      redirect_to tasks_path
     end
   end
 
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :descrption, :category_id, :owner_id, :due_date, participating_users_attributes: [:user_id, :role])
+    params.require(:task).permit(:name, :descrption, :category_id, :owner_id, :due_date, participating_users_attributes: [:id, :user_id])
   end
 
 end

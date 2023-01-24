@@ -21,11 +21,11 @@
   </div>
   
   <div>
-    <%= t.fields_for :participating_users do |user| %>
+    <%= t.fields_for :participating_users do |participant| %>
       <div class="participating_users_fields">
         <div class="fields">
-          <%= user.label :Participating_users %>
-          <%= user.text_field :user_id %>
+          <%= participant.label :Participating_users %>
+          <%= participant.select :user_id, options_from_collection_for_select(Participant.all, :user_id, :user_id) %>
         </div>
       </div>
     <% end %>
