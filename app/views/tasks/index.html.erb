@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Due_Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each_with_index do |task, index| %>
+      <tr>
+        <td><%= index + 1%></td>
+        <td><%= task.name %></td>
+        <td><%= task.descrption %></td>
+        <td><%= task.due_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Nueva Tarea', new_task_path %>

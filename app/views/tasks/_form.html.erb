@@ -1,0 +1,35 @@
+<%= form_for task do |t| %>
+  <div>
+    <%= t.label :name %>
+    <%= t.text_field :name %>
+  </div>
+  <div>
+    <%= t.label :descrption %>
+    <%= t.text_area :descrption, rows: 20 %>
+  </div>
+  <div>
+    <%= t.label :due_date %>
+    <%= t.date_field :due_date %>
+  </div>
+  <div>
+    <%= t.label :Owner %>
+    <%= t.select :owner_id, options_from_collection_for_select(User.all, :id, :email) %>
+  </div>
+  <div>
+    <%= t.label :Categoria %>
+    <%= t.select :category_id, options_from_collection_for_select(Category.all, :id, :name) %>
+  </div>
+  
+  <div>
+    <%= t.fields_for :participating_users do |user| %>
+      <div class="participating_users_fields">
+        <div class="fields">
+          <%= user.label :Participating_users %>
+          <%= user.text_field :user_id %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%= t.submit %>
+<% end %>
+

@@ -22,10 +22,13 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Task < ApplicationRecord
+
   belongs_to :category
   belongs_to :owner, class_name: 'User'
   has_many :participating_users, class_name: 'Participant'
   has_many :participants, through: :participating_users, source: :user
+
+  accepts_nested_attributes_for :participating_users
 
   validates :participating_users, presence: true
 
