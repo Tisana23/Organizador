@@ -28,8 +28,8 @@ class Task < ApplicationRecord
   has_many :participating_users, class_name: 'Participant'
   has_many :participants, through: :participating_users, source: :user
 
-  accepts_nested_attributes_for :participating_users, allow_destroy: true
-  #,
+  accepts_nested_attributes_for :participating_users, reject_if: proc { |attr| attr['user_id'].blank? }, allow_destroy: true
+  #reject_if: :all_blank
   #reject_if: proc { |attr| attr['address'].blank? } <--- Esto se pone si tenemos una validacion de presence en participating_users
 
   validates :participating_users, presence: true

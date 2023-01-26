@@ -21,14 +21,20 @@
   </div>
   
   <div>
-    <%= t.fields_for :participating_users do |participant| %>
-      <div class="participating_users_fields">
+    <div class="participating_users_fields">
+      <%= t.fields_for :participating_users do |participant| %>
         <div class="fields">
-          <%= participant.label :Participating_users %>
-          <%= participant.select :user_id, options_from_collection_for_select(Participant.all, :user_id, :user_id) %>
+          <% if participant.object.persisted? %>
+            <p><%= participant.object.user.email %></p>
+            <%= participant.check_box :_destroy %>
+            <%= participant.label :_destroy, "Borrar" %>
+          <% else %>
+            <%= participant.label :Participating_users %>
+            <%= participant.select :user_id, options_from_collection_for_select(User.all, :id, :email), :include_blank => true %>
+          <% end %>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
   <%= t.submit %>
 <% end %>
