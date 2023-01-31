@@ -5,6 +5,9 @@
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Due_Date</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -12,8 +15,12 @@
       <tr>
         <td><%= index + 1%></td>
         <td><%= task.name %></td>
-        <td><%= task.descrption %></td>
+        <td><%= task.description %></td>
         <td><%= task.due_date %></td>
+        <td><%= link_to 'Ver', task_path(task)%></td>
+        <td><%= link_to 'Editar', edit_task_path(task) %></td>
+        <td><%= link_to 'Eliminar', task_path(task), method: :delete %></td>
+
       </tr>
     <% end %>
   </tbody>

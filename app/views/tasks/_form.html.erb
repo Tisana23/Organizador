@@ -5,35 +5,26 @@
   </div>
   <div>
     <%= t.label :descrption %>
-    <%= t.text_area :descrption, rows: 20 %>
+    <%= t.text_area :description, rows: 20 %>
   </div>
   <div>
     <%= t.label :due_date %>
     <%= t.date_field :due_date %>
   </div>
-  <div>
-    <%= t.label :Owner %>
-    <%= t.select :owner_id, options_from_collection_for_select(User.all, :id, :email) %>
-  </div>
+  
   <div>
     <%= t.label :Categoria %>
     <%= t.select :category_id, options_from_collection_for_select(Category.all, :id, :name) %>
   </div>
   
   <div>
-    <div class="participating_users_fields">
+    <div class="form-group">
       <%= t.fields_for :participating_users do |participant| %>
-        <div class="fields">
-          <% if participant.object.persisted? %>
-            <p><%= participant.object.user.email %></p>
-            <%= participant.check_box :_destroy %>
-            <%= participant.label :_destroy, "Borrar" %>
-          <% else %>
-            <%= participant.label :Participating_users %>
-            <%= participant.select :user_id, options_from_collection_for_select(User.all, :id, :email), :include_blank => true %>
-          <% end %>
-        </div>
+          <%= render 'participating_user_fields', f: participant %>
       <% end %>
+      <div class="links">
+        <%= link_to_add_association 'Añadir Participante', t, :participating_users %>
+      </div>
     </div>
   </div>
   <%= t.submit %>
