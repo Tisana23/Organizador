@@ -3,19 +3,20 @@
     <%= @task.id %>
     <%= "Y tengo  "%>
     <%= @task.participating_users.count%>
+    <br>
     <% @task.notes.each do |note|%>
-      <%= note %>
+      <%= note.body %>
     <% end %>
 
 </div>
 
 <div class="notes-container">
-  <%= form_for task_notes_path(task_id: @task.id) do |f| %>
+  <%= form_for @note, url: task_notes_path(task_id: @task.id) do |f| %>
   <div>
     <%= f.label :body, "Nota" %>
     <%= f.text_area :body, rows: 2 %>
   </div>
-    <%= f.submit %>
+    <%= f.submit"Añadir nota", data: {confirm: "Seguro?"}%>
   <% end %>
 </div>
 

@@ -1,11 +1,10 @@
-class Task::NotesController < ApplicationController
+class Tasks::NotesController < ApplicationController
   before_action :set_task
   def create
     @note = @task.notes.new(note_params)
     @note.user = current_user
-    byebug
     if @note.save
-      task_ulr(@task)
+      redirect_to task_url(@task), notice: "Nota agregada"
     end
   end
 
@@ -16,7 +15,7 @@ class Task::NotesController < ApplicationController
   end
 
   def set_task
-    @task = task.find(params[:task_id])
+    @task = Task.find(params[:task_id])
   end
 
 end

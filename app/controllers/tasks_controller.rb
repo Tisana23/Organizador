@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    
+    @note = Note.new
   end
 
   def new
