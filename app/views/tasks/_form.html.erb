@@ -1,19 +1,19 @@
 <%= form_for task do |t| %>
   <div>
-    <%= t.label :name %>
+    <%= t.label :name, "Nombre" %>
     <%= t.text_field :name %>
   </div>
   <div>
-    <%= t.label :descrption %>
+    <%= t.label :descrption, "Descripción" %>
     <%= t.text_area :description, rows: 20 %>
   </div>
   <div>
-    <%= t.label :due_date %>
+    <%= t.label :due_date, "Fecha de entrega"%>
     <%= t.date_field :due_date %>
   </div>
   
   <div>
-    <%= t.label :Categoria %>
+    <%= t.label :categoria, "Categoría"%>
     <%= t.select :category_id, options_from_collection_for_select(Category.all, :id, :name) %>
   </div>
   
@@ -22,9 +22,9 @@
       <%= t.fields_for :participating_users do |participant| %>
           <%= render 'participating_user_fields', f: participant %>
       <% end %>
-      <div class="links">
-        <%= link_to_add_association 'Añadir Participante', t, :participating_users %>
-      </div>
+      <br>
+      <br>
+      <%= link_to_add_association 'Añadir Participante', t, :participating_users %>
     </div>
   </div>
   <%= t.submit %>

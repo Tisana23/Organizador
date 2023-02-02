@@ -1,5 +1,5 @@
 <div class="nested-fields">
-  <div>
+  <div class="field">
       <%= f.label :participating_users %>
       <%= f.select :user_id, options_from_collection_for_select(User.all, :id, :email), :include_blank => true %>
   </div>

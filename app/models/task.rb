@@ -28,6 +28,7 @@ class Task < ApplicationRecord
   belongs_to :owner, class_name: 'User'
   has_many :participating_users, class_name: 'Participant', dependent: :destroy
   has_many :participants, through: :participating_users, source: :user
+  has_many :notes
 
   validates :participating_users, presence: true
 
@@ -40,6 +41,7 @@ class Task < ApplicationRecord
   #reject_if: proc { |attr| attr['address'].blank? } <--- Esto se pone si tenemos una validacion de presence en participating_users
 
   before_create :create_code
+  after_create :send_email
 
   def due_date_validity
     return if due_date.blank? #El campo es obligatorio desde la migracion,
@@ -51,6 +53,12 @@ class Task < ApplicationRecord
 
   def create_code
     self.code = "#{owner_id}#{Time.now.to_i.to_s(36)}#{SecureRandom.hex(8)}"
+  end
+
+  def send_email
+    (participants + [owner]).each do |user|
+      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
+    end
   end
 
 

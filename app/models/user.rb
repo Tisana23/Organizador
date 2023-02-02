@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
 
   has_many :owned_tasks, class_name: 'Task'
-  has_many :participations, class_name: 'Participant'
+  has_many :participations, class_name: 'Participant', dependent: :destroy
   has_many :tasks, through: :participations
   
 

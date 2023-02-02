@@ -9,7 +9,7 @@ class TasksController < ApplicationController
       'owner_id = ? OR participants.user_id = ?',
       current_user.id,
       current_user.id
-      ).group(:id)
+      ).group(:id) #el group es para que no se repitan tareas
   end
 
   def show
@@ -18,17 +18,17 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
-    @task.participating_users.build
+    #@task.participating_users.build
   end
 
   def create
     @task = Task.new(task_params)
-    @task.participating_users.build
     @task.owner = current_user
     if @task.save
-      redirect_to task_path(@task)
+      redirect_to task_url(@task)
     else
-      render :index
+      # @task.participating_users.build
+      render :new
     end
   end
 
@@ -38,15 +38,15 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_path(@task)
+      redirect_to task_url(@task)
     else
-      redirect_to tasks_path
+      redirect_to tasks_url
     end
   end
 
   def destroy
     @task.destroy
-    redirect_to tasks_path
+    redirect_to tasks_url
   end
 
   private
