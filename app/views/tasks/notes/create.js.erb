@@ -1,0 +1,12 @@
+<%- if @note.persisted? %>
+    var parentNode = document.querySelector(".notes-container .notes") <%#En la pagina que estamos busca div notes-container y div notes %>
+    var div = document.createElement("div")
+    div.innerHTML = "<%= j render 'tasks/notes/note', note: @note %>" <%#SE renderiza a tasks/notes/note %>
+    parentNode.appendChild(div)
+    document.getElementById("note_body").value = ""; <%# Esto deja el cuadro te texto vacio %>
+    window.scrollTo({ <%# Esto nos lleva al inicio de la pagina %>
+        top: window.innerHeight,
+        behavior: "smooth"
+    });
+<% end %>
+

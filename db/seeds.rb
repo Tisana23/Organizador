@@ -77,8 +77,8 @@
     
     ['conceptualización', 'Conclusiones del curso', owner_and_participants]]
 
+    ##creando participants y task al tiempo
   base.each do |category, description, participant_set|
-
     participants = participant_set.map do |user|
       Participant.new(user: user, role: rand(1)+1)
     end

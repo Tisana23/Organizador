@@ -4,14 +4,17 @@
     <%= "Y tengo  "%>
     <%= @task.participating_users.count%>
     <br>
-    <% @task.notes.each do |note|%>
-      <%= note.body %>
-    <% end %>
+    
 
 </div>
 
 <div class="notes-container">
-  <%= form_for @note, url: task_notes_path(task_id: @task.id) do |f| %>
+  <div class="notes">
+    <% @task.notes.each do |note|%>
+      <%= render 'tasks/notes/note.html.erb', note: note %>
+    <% end %>
+  </div>
+  <%= form_for @note, url: task_notes_path(task_id: @task.id), remote: true do |f| %>
   <div>
     <%= f.label :body, "Nota" %>
     <%= f.text_area :body, rows: 2 %>
