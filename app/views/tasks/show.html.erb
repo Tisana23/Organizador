@@ -1,26 +1,38 @@
-<div class="container">
-    <%= "Soy la tarea # "%>
-    <%= @task.id %>
-    <%= "Y tengo  "%>
-    <%= @task.participating_users.count%>
-    <br>
-    
+<div class="row">
+  <div class="col-md-6 ">
+    <div class="card" style="width: 32rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= "Tarea # #{@task.id}"%></h5>
+        <p class="card-text"><%= @task.description %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= @task.category.name %></li>
+        <li class="list-group-item"><p><small><i><%= @task.due_date %></i></small></p></li>
+        <li class="list-group-item"><p><small><%= @task.owner.email %></small></p></li>
+      </ul>
+      <div class="card-body">
+        <a><%= link_to 'Editar Tarea', edit_task_path(@task), class: 'btn btn-primary my-3' %></a>
+      </div>
+    </div>
+  </div>
 
+  <div class="col-md-3 ">
+    <div class="notes-container">
+      <div class="notes">
+        <% @task.notes.each do |note|%>
+          <%= render 'tasks/notes/note.html.erb', note: note %>
+        <% end %>
+      </div>
+      <%= form_for @note, url: task_notes_path(task_id: @task.id), remote: true do |f| %>
+      <div>
+        <%= f.label :body, "Nota" %>
+        <%= f.text_area :body, rows: 2 %>
+      </div>
+        <%= f.submit"Añadir nota", data: {confirm: "Seguro?"}%>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<div class="notes-container">
-  <div class="notes">
-    <% @task.notes.each do |note|%>
-      <%= render 'tasks/notes/note.html.erb', note: note %>
-    <% end %>
-  </div>
-  <%= form_for @note, url: task_notes_path(task_id: @task.id), remote: true do |f| %>
-  <div>
-    <%= f.label :body, "Nota" %>
-    <%= f.text_area :body, rows: 2 %>
-  </div>
-    <%= f.submit"Añadir nota", data: {confirm: "Seguro?"}%>
-  <% end %>
-</div>
 
 

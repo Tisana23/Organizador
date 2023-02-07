@@ -43,6 +43,8 @@ class Task < ApplicationRecord
   before_create :create_code
   after_create :send_email
 
+  enum role: [:responsible, :collaborator ]
+
   def due_date_validity
     return if due_date.blank? #El campo es obligatorio desde la migracion,
      #pero este ees un ejemplo de como seria

@@ -13,7 +13,7 @@
         </li>
 
         <li class="nav-item active">
-          <a class="nav-link" href="<%= root_path %>">Categorías</a>
+          <a class="nav-link" href="<%= categories_path %>">Categorías</a>
         </li>
       
         <% if current_user %>
@@ -28,14 +28,11 @@
       </ul>
       <%= link_to 'Crear Tarea', new_task_path, class: 'btn btn-light ml-2' %>
       <a><div aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" id="userMenu">
-        <%= image_tag "https://robohash.org/#{current_user.email}?size=38x38" %>
-        <div aria-labelledby="userMenu" class="dropdown-menu dropdown-menu-right">
-          <div class="dropdown-item small text-right">
-            <%= current_user.email %>
-          </div>
-        </div>
-      </div></a>
-      
+        <% if user_signed_in?%>
+          <%= image_tag "https://robohash.org/#{current_user.email}?size=38x38" %>
+        <% else%>
+          <%= image_tag "https://robohash.org/invitado?size=38x38" %>
+        <%end%> 
     </div>
   </div>
 </nav>

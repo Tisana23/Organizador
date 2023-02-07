@@ -25,7 +25,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.owner = current_user
     if @task.save
-      redirect_to task_url(@task)
+      redirect_to task_url(@task), notice: "Tarea creada"
     else
       # @task.participating_users.build
       render :new
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to task_url(@task)
+      redirect_to task_url(@task), notice: "Tarea editada"
     else
       redirect_to tasks_url
     end
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :category_id, :owner_id, :due_date, participating_users_attributes: [:id, :user_id, :_destroy])
+    params.require(:task).permit(:name, :description, :category_id, :owner_id, :due_date, participating_users_attributes: [:id, :user_id, :role, :_destroy])
   end
 
 end

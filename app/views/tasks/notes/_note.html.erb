@@ -1,3 +1,12 @@
-<p><%= note.body %></p>
-<p><%= time_ago_in_words note.created_at%></p>
-<p><%= note.user.email%></p>
+<div class="card" style="width: 300px">
+  <div class="card-header">
+    <%= "░ "* 17 %>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p><%= note.body %></p>
+      <p><small><small><%=note.user.email%></small></small></p>
+      <p><i><small><small><small><%= " hace #{time_ago_in_words note.created_at}"%></small></small></small></i></p>
+    </blockquote>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each_with_index do |category, index| %>
+      <tr>
+        <td><%= index + 1%></td>
+        <td><%= category.name %></td>
+        <td><%= category.description %></td>
+        <td><%= link_to 'Ver', category_path(category)%></td>
+        <td><%= link_to 'Editar', edit_category_path(category) %></td>
+        <td><%= link_to 'Eliminar', category_path(category), method: :delete %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Nueva Categoría', new_category_path %>

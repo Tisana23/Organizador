@@ -1,10 +1,11 @@
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col">Due_Date</th>
+      <th scope="col">Category</th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -16,7 +17,8 @@
         <td><%= index + 1%></td>
         <td><%= task.name %></td>
         <td><%= task.description %></td>
-        <td><%= task.due_date %></td>
+        <td><small><em><%= task.due_date %></small></em></td>
+        <td><%= task.category.name %></td>
         <td><%= link_to 'Ver', task_path(task)%></td>
         <td><%= link_to 'Editar', edit_task_path(task) %></td>
         <td><%= link_to 'Eliminar', task_path(task), method: :delete %></td>
