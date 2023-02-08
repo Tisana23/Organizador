@@ -35,6 +35,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem 'pry-doc'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 4.1.0'
 end
 
 group :development do
@@ -50,6 +52,10 @@ group :development do
   gem 'letter_opener', '~> 1.8', '>= 1.8.1'
 end
 
+group :test do
+  gem 'shoulda-matchers', '~> 5.0'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -61,3 +67,6 @@ gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'cocoon', '~> 1.2', '>= 1.2.15'
 gem 'cancancan', '~> 3.4'
 gem 'font-awesome-sass', '~> 6.2', '>= 6.2.1'
+
+
+gem 'faker'
