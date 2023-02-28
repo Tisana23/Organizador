@@ -37,6 +37,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.1.0'
+  gem 'database_cleaner', '~> 1.7.0'
 end
 
 group :development do
@@ -54,6 +55,8 @@ end
 
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'capybara'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -67,6 +70,7 @@ gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'cocoon', '~> 1.2', '>= 1.2.15'
 gem 'cancancan', '~> 3.4'
 gem 'font-awesome-sass', '~> 6.2', '>= 6.2.1'
-
-
 gem 'faker'
+gem 'sucker_punch'
+
+gem 'aasm'

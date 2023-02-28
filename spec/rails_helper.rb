@@ -9,6 +9,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'factory_bot_rails'
 require 'faker'
+require 'capybara/rails'
+require 'sucker_punch/testing/inline'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -45,8 +47,9 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.include FactoryBot::Syntax::Methods
-  config.include Warden::Test::Helpers
+  config.include Warden::Test::Helpers #warden es la libreria de devise
   config.include Devise::Test::ControllerHelpers, type: 'controller'
+  config.include Devise::Test::IntegrationHelpers, type: 'request'
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
   config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 
@@ -69,11 +72,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-end
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
+
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
   end
 end

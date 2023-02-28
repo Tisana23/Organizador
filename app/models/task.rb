@@ -7,6 +7,8 @@
 #  description :text
 #  due_date    :date             not null
 #  name        :string
+#  status      :string
+#  transitions :string           default([]), is an Array
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  category_id :bigint           not null
@@ -23,6 +25,7 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Task < ApplicationRecord
+  include AASM
 
   belongs_to :category
   belongs_to :owner, class_name: 'User'
@@ -45,6 +48,32 @@ class Task < ApplicationRecord
 
   enum role: [:responsible, :collaborator ]
 
+  aasm column: 'status' do
+    state :pending, initial: true
+    state :in_process, :finished
+
+    after_all_transitions :audit_status_change
+
+    event :start do
+      transitions from: :pending, to: :in_process
+    end
+
+    event :finish do
+      transitions from: :in_process, to: :finished
+    end
+  end
+
+  def audit_status_change
+    self.transitions = self.transitions.push(
+      {
+        from_state: aasm.from_state,
+        to_state: aasm.to_state,
+        current_event: aasm.current_event,
+        timestamp: Time.zone.now
+      }
+    )
+  end
+
   def due_date_validity
     return if due_date.blank? #El campo es obligatorio desde la migracion,
      #pero este ees un ejemplo de como seria
@@ -58,13 +87,8 @@ class Task < ApplicationRecord
   end
 
   def send_email
-    (participants + [owner]).each do |user|
-      ParticipantMailer.with(user: user, task: self).new_task_email.deliver!
-    end
+    Tasks::SendEmailJob.perform_in 15, self.id.to_s
   end
-
 
 end
 
-
-#<%= participant.text_field :user_id %>
